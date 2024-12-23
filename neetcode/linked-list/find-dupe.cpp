@@ -1,15 +1,20 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-		int n = nums.size() - 1;
+		int rabit = nums[0];
+		int turtle = 0;
 
-		int next = nums[0];
-		// i is the number of elements we looked through
-		for(int i = 0; i < n+1; i++) {
-			if(nums[next] == -1) return next;
-			int temp = nums[next];
-			nums[next] = -1;
-			next = temp;
+		while(true) {
+			if(rabit == turtle || nums[rabit] == turtle) break;
+			rabit = nums[nums[rabit]];
+			turtle = nums[turtle];
+		}
+
+		int turtle2 = nums[turtle];
+		while(true) {
+			if(turtle == turtle2) return turtle;
+			turtle = nums[turtle];
+			turtle2 = nums[turtle2];
 		}
 		return -1;
     }
